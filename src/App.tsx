@@ -26,30 +26,30 @@ class App extends Component {
       <div className="root">
         <h2>With no checked/default values</h2>
         <div className="flex">
-          <DropdownTreeSelect data={bigData} id="normalSelect1" className="normalSelect1" />
-          <DropdownTreeSelect data={bigData} radioSelect id="radioSelect1" className="radioSelect1" />
-          <DropdownTreeSelect data={data} simpleSelect id="simpleSelect1" className="simpleSelect1" />
+          <DropdownTreeSelect data={bigData} />
+          <DropdownTreeSelect data={bigData} />
+          <DropdownTreeSelect data={data} />
         </div>
         <h2>With default values</h2>
         <p>Groot default, Batman default</p>
         <div className="flex">
-          <DropdownTreeSelect data={[ bigData, defaultDummyA, defaultDummyB ]} id="normalSelect2" className="normalSelect2" />
-          <DropdownTreeSelect data={[ bigData, defaultDummyA, defaultDummyB ]} radioSelect id="radioSelect2" className="radioSelect2" />
-          <DropdownTreeSelect data={[ defaultDummyA, defaultDummyB ].concat(data)} simpleSelect id="simpleSelect2" className="simpleSelect2" />
+          <DropdownTreeSelect data={[ bigData, defaultDummyA, defaultDummyB ]} />
+          <DropdownTreeSelect data={[ bigData, defaultDummyA, defaultDummyB ]} radioSelect />
+          <DropdownTreeSelect data={[ defaultDummyA, defaultDummyB ].concat(data)} simpleSelect />
         </div>
         <h2>With checked values</h2>
         <p>Groot checked, Batman checked</p>
         <div className="flex">
-          <DropdownTreeSelect data={[ bigData, checkedDummyA, checkedDummyB ]} id="normalSelect3" className="normalSelect3" />
-          <DropdownTreeSelect data={[ bigData, checkedDummyA, checkedDummyB ]} radioSelect id="radioSelect3" className="radioSelect3" />
-          <DropdownTreeSelect data={[ checkedDummyA, checkedDummyB ].concat(data)} simpleSelect id="simpleSelect3" className="simpleSelect3" />
+          <DropdownTreeSelect data={[ bigData, checkedDummyA, checkedDummyB ]} />
+          <DropdownTreeSelect data={[ bigData, checkedDummyA, checkedDummyB ]} radioSelect />
+          <DropdownTreeSelect data={[ checkedDummyA, checkedDummyB ].concat(data)} simpleSelect />
         </div>
         <h2>With checked/default values</h2>
         <p>Groot default, Batman checked</p>
         <div className="flex">
-          <DropdownTreeSelect data={[ bigData, defaultDummyA, checkedDummyB ]} id="normalSelect3" className="normalSelect3" />
-          <DropdownTreeSelect data={[ bigData, defaultDummyA, checkedDummyB ]} radioSelect id="radioSelect3" className="radioSelect3" />
-          <DropdownTreeSelect data={[ defaultDummyA, checkedDummyB ].concat(data)} simpleSelect id="simpleSelect3" className="simpleSelect3" />
+          <DropdownTreeSelect data={[ bigData, defaultDummyA, checkedDummyB ]} />
+          <DropdownTreeSelect data={[ bigData, defaultDummyA, checkedDummyB ]} radioSelect />
+          <DropdownTreeSelect data={[ defaultDummyA, checkedDummyB ].concat(data)} simpleSelect />
         </div>
       </div>
     );
