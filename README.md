@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Only intended for showcasing (with IE11-support in mind as well), see deployed [showcase here](https://ellinge.github.io/react-dropdown-tree-select-test/index) 
+
 ## Available Scripts
 
 In the project directory, you can run:

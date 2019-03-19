@@ -1,5 +1,5 @@
 {
-  "name": "react-dropdown-tree-select-playground",
+  "name": "react-dropdown-tree-select-test",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,6 +7,7 @@
     "@types/node": "11.11.3",
     "@types/react-dom": "16.8.2",
     "es6-shim": "^0.35.5",
+    "gh-pages": "^2.0.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-dropdown-tree-select": "git+https://github.com/ellinge/react-dropdown-tree-select.git#developTemp2",
@@ -14,6 +15,8 @@
     "typescript": "3.3.3333"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -28,6 +31,7 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "homepage": "https://ellinge.github.io/react-dropdown-tree-select-test",
   "devDependencies": {
     "@types/react": "^16.8.8"
   }
