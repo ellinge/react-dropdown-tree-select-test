@@ -31,18 +31,21 @@ class App extends Component {
           <DropdownTreeSelect data={data} simpleSelect id="simpleSelect1" className="simpleSelect1" />
         </div>
         <h2>With default values</h2>
+        <p>Groot default, Batman default</p>
         <div className="flex">
           <DropdownTreeSelect data={[ bigData, defaultDummyA, defaultDummyB ]} id="normalSelect2" className="normalSelect2" />
           <DropdownTreeSelect data={[ bigData, defaultDummyA, defaultDummyB ]} radioSelect id="radioSelect2" className="radioSelect2" />
           <DropdownTreeSelect data={[ defaultDummyA, defaultDummyB ].concat(data)} simpleSelect id="simpleSelect2" className="simpleSelect2" />
         </div>
         <h2>With checked values</h2>
+        <p>Groot checked, Batman checked</p>
         <div className="flex">
           <DropdownTreeSelect data={[ bigData, checkedDummyA, checkedDummyB ]} id="normalSelect3" className="normalSelect3" />
           <DropdownTreeSelect data={[ bigData, checkedDummyA, checkedDummyB ]} radioSelect id="radioSelect3" className="radioSelect3" />
           <DropdownTreeSelect data={[ checkedDummyA, checkedDummyB ].concat(data)} simpleSelect id="simpleSelect3" className="simpleSelect3" />
         </div>
         <h2>With checked/default values</h2>
+        <p>Groot default, Batman checked</p>
         <div className="flex">
           <DropdownTreeSelect data={[ bigData, defaultDummyA, checkedDummyB ]} id="normalSelect3" className="normalSelect3" />
           <DropdownTreeSelect data={[ bigData, defaultDummyA, checkedDummyB ]} radioSelect id="radioSelect3" className="radioSelect3" />
