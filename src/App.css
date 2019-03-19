@@ -1,6 +1,10 @@
-.suspended .node-label {
-  font-style: italic;
-  text-decoration: line-through;
+.root {
+  padding: 0.5em;
+}
+
+.dropdown {
+  margin-bottom: 1em;
+  margin-right: 1em;
 }
 
 .dropdown-content {
@@ -8,16 +12,11 @@
   overflow-y: auto;
 }
 
-.node .fa {
-  font-size: 12px;
-  margin-left: 4px;
-  cursor: pointer;
-}
-
-.node .fa-ban {
-  color: darkorange;
-}
-
-.App-header {
+.flex {
   display: flex;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
 }
