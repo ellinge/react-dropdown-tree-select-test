@@ -3,7 +3,7 @@ import bigData from './big-data.json'
 import data from './data.json'
 import DropdownTreeSelect from 'react-dropdown-tree-select'
 import 'react-dropdown-tree-select/dist/styles.css'
-import "./App.css"
+import "./App.scss"
 
 const dummyA = {
   label: "I am groot",

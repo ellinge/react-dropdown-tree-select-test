@@ -8,6 +8,7 @@
     "@types/react-dom": "16.8.2",
     "es6-shim": "^0.35.5",
     "gh-pages": "^2.0.1",
+    "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-dropdown-tree-select": "git+https://github.com/ellinge/react-dropdown-tree-select.git#developTemp2",
