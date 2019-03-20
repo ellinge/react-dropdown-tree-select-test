@@ -47,3 +47,14 @@ h2 {
 .node .fa-ban {
   color: darkorange;
 }
+
+.tag-item {
+  min-height: 20px;
+  margin: 2px;
+}
+
+.tag-item .search {
+  padding: 4px 0 2px 2px;
+  line-height: 20px;
+  display: inline-block;
+}
