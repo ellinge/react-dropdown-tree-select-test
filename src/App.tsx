@@ -19,7 +19,7 @@ const ActionTests: React.FunctionComponent = (props) => {
   const actions = [
     {  title: "global", className: "fa fa-globe" },
     {  title: "(action, node)", className: "fa fa-copy", onAction: addToActionLogMultiParam },
-    {  title: "{ action, node }", className: "fa fa-file-o", onAction: addToActionLogSingleObject },
+    {  title: "{ action, node }", className: "fa fa-file-o", onAction: addToActionLogSingleObject }
   ];
 
   const actionsDummyA = { ...dummyA, actions };

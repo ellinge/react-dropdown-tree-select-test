@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "interface-name": [
+      false
+    ],
+    "object-literal-sort-keys": [ true, "match-declaration-order" ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline2": {
+          "arrays": "ignore"
+        }
+      }
+    ]
+  }
+}
