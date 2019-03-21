@@ -42,4 +42,21 @@ body {
       display: inline-block;
     }
   }
+
+  .node {
+    .fa {
+      font-size: 12px;
+      margin-left: 4px;
+      cursor: pointer;
+      &-globe {
+        color: darkorange;
+      }
+      &-file-o {
+        color: blue;
+      }
+      &-copy {
+        color: green;
+      }
+    }
+  }
 }
