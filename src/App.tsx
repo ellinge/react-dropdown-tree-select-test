@@ -1,28 +1,54 @@
 import React from "react";
-import DropdownTreeSelect from "react-dropdown-tree-select";
+import DropdownTreeSelect, { TreeNodeProps, TreeNode } from "react-dropdown-tree-select";
+import DropdownTreeSelect116 from "react-dropdown-tree-select@1.16.0";
+import prettyPrint from "json-pretty-html";
+import CircularJSON from 'circular-json';
 
 import "react-dropdown-tree-select/dist/styles.css";
-import { ActionLog } from "./ActionLog";
+import { EventLog } from "./EventLog";
 import "./App.scss";
 import BenchmarkRender from "./BenchmarkRender";
 import bigData from "./big-data.json";
 import data from "./data.json";
 
-const DropDownTestSection: React.FunctionComponent<
-  { header: string, description?: string, dummyA: any, dummyB: any }> = (props) => {
-  const { header, description, dummyA, dummyB } = props;
-  return (<div>
-    <h2>{header}</h2>
+interface DropDownTestSectionProps {
+  Type: any,
+  header: string;
+  description?: string; 
+  dummyA?: TreeNodeProps;
+  dummyB?: TreeNodeProps;
+  onChange?: (currentNode: TreeNode, selectedNodes: TreeNode[]) => void;
+  onAction?: any;
+  onNodeToggle?: (currentNode: TreeNode) => void;
+  show?: boolean;
+}
+
+const DropDownTestSection: React.FunctionComponent<DropDownTestSectionProps> = (props) => {
+  const [ show, setShow ] = React.useState<boolean>(props.show || false)
+  const { Type, header, description, dummyA, dummyB, onChange, onAction, onNodeToggle, children } = props;
+
+  const dataMulti: TreeNodeProps[] = [ bigData ]
+  const dataSingle: TreeNodeProps[] = JSON.parse(JSON.stringify(data))
+  if (dummyA) { dataMulti.push(dummyA); dataSingle.unshift(dummyA) }
+  if (dummyB) { dataMulti.push(dummyB); dataSingle.unshift(dummyB) }
+
+  return (<div className={`dropdown-section ${show ? "visible" : "hidden"}`}>
+    <a href="javascript:void(0)" onClick={() => setShow(!show)}>{header}</a>
     {description && <p>{description}</p>}
-    <div className="flex">
-      <DropdownTreeSelect data={[ bigData, dummyA, dummyB ]} />
-      <DropdownTreeSelect data={[ bigData, dummyA, dummyB ]} radioSelect />
-      <DropdownTreeSelect data={[ dummyA, dummyB ].concat(data)} simpleSelect />
-    </div>
+    {show && <div>
+        <div className="flex-wrap">
+          <Type data={dataMulti} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
+          <Type data={dataMulti} radioSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
+          <Type data={dataSingle} simpleSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
+        </div>
+        {children}
+      </div>}
   </div>);
 };
 
 const App: React.FunctionComponent = (props) => {
+  const [ componentType, setComponentType ] = React.useState("DropdownTreeSelect")
+
   const dummyA = { label: "I am groot", value: "groot" };
   const dummyB = { label: "I'm batman", value: "batman" };
   const defaultDummyA = { ...dummyA, isDefaultValue: true };
@@ -30,53 +56,61 @@ const App: React.FunctionComponent = (props) => {
   const checkedDummyA = { ...dummyA, checked: true };
   const checkedDummyB = { ...dummyB, checked: true };
 
-  const actionLogRef = React.createRef<ActionLog>();
-  function addToActionLogMultiParam(action, node) {
-    if (actionLogRef.current) { actionLogRef.current.addToActionLogMultiParam(action, node); }
-  }
-  function addToActionLogSingleObject({ action, node }) {
-    if (actionLogRef.current) { actionLogRef.current.addToActionLogSingleObject({ action, node }); }
+  const eventLogRef = React.createRef<EventLog>();
+
+  const addToLog = (eventName: string, data: any) =>
+    eventLogRef.current &&  eventLogRef.current.addToLog(
+      <>
+        <strong>{eventName}</strong>: 
+        <div className="json" dangerouslySetInnerHTML={{ __html: prettyPrint(JSON.parse(CircularJSON.stringify(data))) }} />
+      </>);
+  const onChange = (currentNode: TreeNode, selectedNodes: TreeNode[]) => 
+    addToLog("onChange", { currentNode, selectedNodes });
+  const onAction = (action: any, node: any) => 
+    addToLog("onAction", { action: action || null, node: node || null });
+  const onNodeToggle = (currentNode: TreeNode) => 
+    addToLog("onNodeToggle", currentNode);
+  const onLocalAction =  (action: any, node: any) => 
+    addToLog("local onAction", { action: action || null, node: node || null });
+  const changeComponentType = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setComponentType(event.target.value);
   }
 
   const actions = [
-    {  title: "global", className: "fa fa-globe" },
-    {  title: "(action, node)", className: "fa fa-copy", onAction: addToActionLogMultiParam },
-    {  title: "{ action, node }", className: "fa fa-file-o", onAction: addToActionLogSingleObject}
+    {  title: "global", className: "fa fa-globe", customAction: true },
+    {  title: "localNode", className: "fa fa-map-marker", onAction: onLocalAction },
   ];
 
-  const actionsDummyA = { ...dummyA, actions };
-  const actionsDummyB = { ...dummyB, actions };
+  const actionsDummyA = { ...dummyA, actions, grootNode: true };
+  const actionsDummyB = { ...dummyB, actions, batmanNode: true };
+  const Type = componentType === "DropdownTreeSelect116" ? DropdownTreeSelect116 : DropdownTreeSelect;
 
   return (
     <div className="root">
       <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
-      <h2>With no checked/default values</h2>
-      <div className="flex">
-        <DropdownTreeSelect data={bigData} />
-        <DropdownTreeSelect data={bigData} radioSelect />
-        <DropdownTreeSelect data={data} simpleSelect />
-      </div>
+      <label htmlFor="componentType">Component type: </label>
+      <select className="select" value={componentType} onChange={changeComponentType} id="componentType">
+        <option value="DropdownTreeSelect">DevelopTemp (ellinge)</option>
+        <option value="DropdownTreeSelect116">Develop (dowjones)</option>
+      </select>
 
-      <DropDownTestSection header="With default values" description="Groot default, Batman default"
+      <DropDownTestSection Type={Type} header="With no checked/default values" />
+
+      <DropDownTestSection Type={Type} header="With default values" description="Groot default, Batman default"
         dummyA={defaultDummyA} dummyB={defaultDummyB} />
 
-      <DropDownTestSection header="With checked values" description="Groot checked, Batman checked"
+      <DropDownTestSection Type={Type} header="With checked values" description="Groot checked, Batman checked"
         dummyA={checkedDummyA} dummyB={checkedDummyB} />
 
-      <DropDownTestSection header="With checked/default values" description="Groot default, Batman checked"
+      <DropDownTestSection Type={Type} header="With checked/default values" description="Groot default, Batman checked"
         dummyA={defaultDummyA} dummyB={checkedDummyB} />
 
-      <h2>With action values</h2>
-      <p>No global onAction, Global onAction (action, node), Global onAction {"({ action, node })"}</p>
-      <div className="flex">
-        <DropdownTreeSelect data={[ bigData, actionsDummyA, actionsDummyB ]} />{/*
-        // @ts-ignore */}
-        <DropdownTreeSelect data={[ bigData, actionsDummyA, actionsDummyB ]} onAction={addToActionLogMultiParam} />{/*
-        // @ts-ignore */}
-        <DropdownTreeSelect data={[ bigData, actionsDummyA, actionsDummyB ]} onAction={addToActionLogSingleObject} />
-      </div>
-      <ActionLog ref={actionLogRef} />
+      <DropDownTestSection Type={Type} header="With events (onAction, onChange, onNodeToggle)"
+        dummyA={actionsDummyA} dummyB={actionsDummyB} show
+        onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}>
+        <EventLog ref={eventLogRef} />
+      </DropDownTestSection>
 
       <BenchmarkRender />
     </div>);

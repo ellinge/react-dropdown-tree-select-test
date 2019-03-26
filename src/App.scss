@@ -18,14 +18,32 @@ body {
     padding: 0;
   }
 
-  .flex {
+  .flex-wrap {
     display: flex;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    appearance: none;
+    border: 1px solid gray;
+    border-radius: 0.5em;
+    padding: 0.2em 0.4em;
+  }
+
+  .select, .button {
+    font-size: 1.2em;
+    padding: 0.2em 0.4em;
+    margin-top: 0.4em;
+  }
+
+  div.message {
+    margin-top: 1em;
   }
 }
 
 .dropdown {
-  margin-bottom: 1em;
   margin-right: 1em;
+  margin-top: 0.5em;
 
   .dropdown-content {
     max-height: 400px;
@@ -36,7 +54,7 @@ body {
     min-height: 20px;
     margin: 2px;
 
-    > .search {
+    >.search {
       padding: 4px 0 2px 2px;
       line-height: 20px;
       display: inline-block;
@@ -48,15 +66,86 @@ body {
       font-size: 12px;
       margin-left: 4px;
       cursor: pointer;
+
       &-globe {
         color: darkorange;
       }
+
       &-file-o {
         color: blue;
       }
+
       &-copy {
         color: green;
       }
     }
+  }
+}
+
+.dropdown-section {
+  border: 1px solid gray;
+  border-radius: 0.5em;
+  padding: 1em;
+  margin: 0.5em 0;
+
+  &.visible>a:before,
+  &.hidden>a:before {
+    display: inline-block;
+    font-family: monospace;
+    font-size: 1.5em;
+    font-weight: 800;
+    margin-right: 0.3em;
+  }
+
+  &.visible>a:before {
+    content: '-'
+  }
+
+  &.hidden>a:before {
+    content: '+'
+  }
+
+  >p,
+  >a {
+    display: block;
+    margin: 0;
+    padding: 0.5em 0;
+  }
+}
+
+.json {
+  font-family: Menlo, Monaco, "Courier New", monospace;
+  font-weight: normal;
+  font-size: 0.9em;
+  line-height: 1.2em;
+  letter-spacing: 0;
+  color: #d4d4d4;
+  text-align: left;
+  padding: 1em 0;
+  margin: 0;
+
+  .json-pretty {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .json-selected {
+    background-color: rgba(139, 191, 228, 0.19999999999999996);
+  }
+
+  .json-string {
+    color: #6caedd;
+  }
+
+  .json-key {
+    color: #ec5f67;
+  }
+
+  .json-boolean {
+    color: #99c794;
+  }
+
+  .json-number {
+    color: #99c794;
   }
 }

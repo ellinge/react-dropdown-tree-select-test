@@ -8,6 +8,7 @@ class BenchmarkData {
   public count: number = 0;
   public totalNodeCount: number = 0;
   public totalMs: number = 0;
+  public clientIds = new Map();
 }
 
 interface BenchmarkState {
@@ -29,17 +30,21 @@ export default class BenchmarkRender extends React.Component<any, BenchmarkState
     this.benchmarkComponent = this.benchmarkComponent.bind(this);
   }
 
+  private renderBenchmarkData(benchMark: BenchmarkData, branch: string) {
+    if(!benchMark || benchMark.count == 0) return null;
+    return <p className="message">
+        Rendering <strong>{benchMark.count}</strong> DropdownTreeSelect ({branch}) took
+        <strong> {benchMark.totalMs} ms </strong>
+        (total nodes parsed: {benchMark.totalNodeCount}, total clientids generated: {benchMark.clientIds.size})
+      </p>;
+  }
+
   public render() {
     const { benchmarking, timeDevelop, timeDevelopTemp } = this.state;
     return <div>
-      {timeDevelop && timeDevelop.count > 0 &&
-        <div>Rendering {timeDevelop.count} DropdownTreeSelect (develop) took {timeDevelop.totalMs} ms
-          (total nodes parsed: {timeDevelop.totalNodeCount})</div>}
-      {timeDevelopTemp && timeDevelopTemp.count > 0 &&
-        <div>Rendering {timeDevelopTemp.count} DropdownTreeSelect (developTemp) took {timeDevelopTemp.totalMs} ms
-          (total nodes parsed: {timeDevelopTemp.totalNodeCount})</div>}
-      {benchmarking && <div>Running...</div>}
-      <button onClick={this.benchmark} disabled={benchmarking}>Run benchmark</button>
+      {this.renderBenchmarkData(timeDevelopTemp, "developTemp")}
+      {this.renderBenchmarkData(timeDevelop, "develop")}
+      <button className="button" onClick={this.benchmark} disabled={benchmarking}>{benchmarking ? 'Running...' : 'Run benchmark'}</button>
     </div>;
   }
 
@@ -50,14 +55,16 @@ export default class BenchmarkRender extends React.Component<any, BenchmarkState
     const renderDiv = document.createElement("div");
     const before = performance.now();
     let totalNodeCount = 0;
+    let clientIds = new Map();
     for (let count = 1; count <= numberOfComponents; count++) {
       const result = await new Promise<BenchmarkData>((resolve) => {
         setTimeout(() => {
-          const elem = React.createElement(Component, { data, id: `dd${count}` }, null);
+          const elem = React.createElement(Component, { data }, null);
           const renderedElem: any = ReactDOM.render(elem, renderDiv);
+          clientIds.set(renderedElem.clientId, {});
           totalNodeCount += renderedElem.state.tree.size;
           ReactDOM.unmountComponentAtNode(renderDiv);
-          resolve({ count, totalMs: Math.floor(performance.now() - before - 1), totalNodeCount });
+          resolve({ count, totalMs: Math.floor(performance.now() - before - 1), totalNodeCount, clientIds });
         }, 1);
       });
       if (count % 20 === 0) {
@@ -69,7 +76,7 @@ export default class BenchmarkRender extends React.Component<any, BenchmarkState
 
   private benchmark(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     this.setState({
-      benchmarking: false,
+      benchmarking: true,
       timeDevelop: new BenchmarkData(),
       timeDevelopTemp: new BenchmarkData()
     },
