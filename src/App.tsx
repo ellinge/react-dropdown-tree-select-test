@@ -66,8 +66,8 @@ const App: React.FunctionComponent = (props) => {
       <h2>With no checked/default values</h2>
       <div className="flex">
         <DropdownTreeSelect data={bigData} />
-        <DropdownTreeSelect data={bigData} />
-        <DropdownTreeSelect data={data} />
+        <DropdownTreeSelect data={bigData} radioSelect />
+        <DropdownTreeSelect data={data} simpleSelect />
       </div>
       <h2>With default values</h2>
       <p>Groot default, Batman default</p>
