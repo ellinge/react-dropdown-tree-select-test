@@ -4,6 +4,7 @@ import DropdownTreeSelect from "react-dropdown-tree-select";
 import "react-dropdown-tree-select/dist/styles.css";
 import { ActionLog } from "./ActionLog";
 import "./App.scss";
+import BenchmarkRender from "./BenchmarkRender";
 import bigData from "./big-data.json";
 import data from "./data.json";
 
@@ -76,6 +77,8 @@ const App: React.FunctionComponent = (props) => {
         <DropdownTreeSelect data={[ bigData, actionsDummyA, actionsDummyB ]} onAction={addToActionLogSingleObject} />
       </div>
       <ActionLog ref={actionLogRef} />
+
+      <BenchmarkRender />
     </div>);
 };
 
