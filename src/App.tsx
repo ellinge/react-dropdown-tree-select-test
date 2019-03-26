@@ -2,10 +2,10 @@ import React from "react";
 import DropdownTreeSelect from "react-dropdown-tree-select";
 
 import "react-dropdown-tree-select/dist/styles.css";
+import { ActionLog } from "./ActionLog";
 import "./App.scss";
 import bigData from "./big-data.json";
 import data from "./data.json";
-import { ActionLog } from "./ActionLog";
 
 const DropDownTestSection: React.FunctionComponent<
   { header: string, description?: string, dummyA: any, dummyB: any }> = (props) => {
@@ -19,7 +19,7 @@ const DropDownTestSection: React.FunctionComponent<
       <DropdownTreeSelect data={[ dummyA, dummyB ].concat(data)} simpleSelect />
     </div>
   </div>);
-}
+};
 
 const App: React.FunctionComponent = (props) => {
   const dummyA = { label: "I am groot", value: "groot" };
@@ -29,12 +29,12 @@ const App: React.FunctionComponent = (props) => {
   const checkedDummyA = { ...dummyA, checked: true };
   const checkedDummyB = { ...dummyB, checked: true };
 
-  let actionLogRef = React.createRef<ActionLog>();
+  const actionLogRef = React.createRef<ActionLog>();
   function addToActionLogMultiParam(action, node) {
-    actionLogRef.current && actionLogRef.current.addToActionLogMultiParam(action, node);
+    if (actionLogRef.current) { actionLogRef.current.addToActionLogMultiParam(action, node); }
   }
   function addToActionLogSingleObject({ action, node }) {
-    actionLogRef.current && actionLogRef.current.addToActionLogSingleObject({ action, node });
+    if (actionLogRef.current) { actionLogRef.current.addToActionLogSingleObject({ action, node }); }
   }
 
   const actions = [
@@ -45,11 +45,11 @@ const App: React.FunctionComponent = (props) => {
 
   const actionsDummyA = { ...dummyA, actions };
   const actionsDummyB = { ...dummyB, actions };
-  
+
   return (
     <div className="root">
       <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-      
+
       <h2>With no checked/default values</h2>
       <div className="flex">
         <DropdownTreeSelect data={bigData} />
