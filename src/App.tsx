@@ -1,20 +1,20 @@
-import React from "react";
-import DropdownTreeSelect, { TreeNodeProps, TreeNode } from "react-dropdown-tree-select";
-import DropdownTreeSelect116 from "react-dropdown-tree-select@1.16.0";
+import CircularJSON from "circular-json";
 import prettyPrint from "json-pretty-html";
-import CircularJSON from 'circular-json';
+import React from "react";
+import DropdownTreeSelect, { TreeNode, TreeNodeProps } from "react-dropdown-tree-select";
+import DropdownTreeSelect116 from "react-dropdown-tree-select@1.16.0";
 
 import "react-dropdown-tree-select/dist/styles.css";
-import { EventLog } from "./EventLog";
 import "./App.scss";
 import BenchmarkRender from "./BenchmarkRender";
 import bigData from "./big-data.json";
 import data from "./data.json";
+import { EventLog } from "./EventLog";
 
 interface DropDownTestSectionProps {
-  Type: any,
+  Type: any;
   header: string;
-  description?: string; 
+  description?: string;
   dummyA?: TreeNodeProps;
   dummyB?: TreeNodeProps;
   onChange?: (currentNode: TreeNode, selectedNodes: TreeNode[]) => void;
@@ -24,13 +24,13 @@ interface DropDownTestSectionProps {
 }
 
 const DropDownTestSection: React.FunctionComponent<DropDownTestSectionProps> = (props) => {
-  const [ show, setShow ] = React.useState<boolean>(props.show || false)
+  const [ show, setShow ] = React.useState<boolean>(props.show || false);
   const { Type, header, description, dummyA, dummyB, onChange, onAction, onNodeToggle, children } = props;
 
-  const dataMulti: TreeNodeProps[] = [ bigData ]
-  const dataSingle: TreeNodeProps[] = JSON.parse(JSON.stringify(data))
+  const dataMulti: TreeNodeProps[] = [ bigData ];
+  const dataSingle: TreeNodeProps[] = JSON.parse(JSON.stringify(data));
   if (dummyA) { dataMulti.push(dummyA); }
-  if (dummyB) { dataMulti.push(dummyB); dataSingle.unshift(dummyB) }
+  if (dummyB) { dataMulti.push(dummyB); dataSingle.unshift(dummyB); }
   if (dummyA) { dataSingle.unshift(dummyA); }
 
   return (<div className={`dropdown-section ${show ? "visible" : "hidden"}`}>
@@ -48,7 +48,7 @@ const DropDownTestSection: React.FunctionComponent<DropDownTestSectionProps> = (
 };
 
 const App: React.FunctionComponent = (props) => {
-  const [ componentType, setComponentType ] = React.useState("DropdownTreeSelect")
+  const [ componentType, setComponentType ] = React.useState("DropdownTreeSelect");
 
   const dummyA = { label: "I am groot", value: "groot" };
   const dummyB = { label: "I'm batman", value: "batman" };
@@ -59,23 +59,24 @@ const App: React.FunctionComponent = (props) => {
 
   const eventLogRef = React.createRef<EventLog>();
 
-  const addToLog = (eventName: string, data: any) =>
+  const addToLog = (eventName: string, eventData: any) =>
     eventLogRef.current &&  eventLogRef.current.addToLog(
       <>
-        <strong>{eventName}</strong>: 
-        <div className="json" dangerouslySetInnerHTML={{ __html: prettyPrint(JSON.parse(CircularJSON.stringify(data))) }} />
+        <strong>{eventName}</strong>:
+        <div className="json" dangerouslySetInnerHTML={
+          { __html: prettyPrint(JSON.parse(CircularJSON.stringify(eventData))) }} />
       </>);
-  const onChange = (currentNode: TreeNode, selectedNodes: TreeNode[]) => 
+  const onChange = (currentNode: TreeNode, selectedNodes: TreeNode[]) =>
     addToLog("onChange", { currentNode, selectedNodes });
-  const onAction = (action: any, node: any) => 
+  const onAction = (action: any, node: any) =>
     addToLog("onAction", { action: action || null, node: node || null });
-  const onNodeToggle = (currentNode: TreeNode) => 
+  const onNodeToggle = (currentNode: TreeNode) =>
     addToLog("onNodeToggle", currentNode);
-  const onLocalAction =  (action: any, node: any) => 
+  const onLocalAction =  (action: any, node: any) =>
     addToLog("local onAction", { action: action || null, node: node || null });
   const changeComponentType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setComponentType(event.target.value);
-  }
+  };
 
   const actions = [
     {  title: "global", className: "fa fa-globe", customAction: true },
