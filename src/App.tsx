@@ -29,8 +29,9 @@ const DropDownTestSection: React.FunctionComponent<DropDownTestSectionProps> = (
 
   const dataMulti: TreeNodeProps[] = [ bigData ]
   const dataSingle: TreeNodeProps[] = JSON.parse(JSON.stringify(data))
-  if (dummyA) { dataMulti.push(dummyA); dataSingle.unshift(dummyA) }
+  if (dummyA) { dataMulti.push(dummyA); }
   if (dummyB) { dataMulti.push(dummyB); dataSingle.unshift(dummyB) }
+  if (dummyA) { dataSingle.push(dummyA); }
 
   return (<div className={`dropdown-section ${show ? "visible" : "hidden"}`}>
     <a href="javascript:void(0)" onClick={() => setShow(!show)}>{header}</a>
