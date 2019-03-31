@@ -30,22 +30,23 @@ export default class BenchmarkRender extends React.Component<any, BenchmarkState
     this.benchmarkComponent = this.benchmarkComponent.bind(this);
   }
 
-  private renderBenchmarkData(benchMark: BenchmarkData, branch: string) {
-    if(!benchMark || benchMark.count == 0) return null;
-    return <p className="message">
-        Rendering <strong>{benchMark.count}</strong> DropdownTreeSelect ({branch}) took
-        <strong> {benchMark.totalMs} ms </strong>
-        (total nodes parsed: {benchMark.totalNodeCount}, total clientids generated: {benchMark.clientIds.size})
-      </p>;
-  }
-
   public render() {
     const { benchmarking, timeDevelop, timeDevelopTemp } = this.state;
     return <div>
       {this.renderBenchmarkData(timeDevelopTemp, "developTemp")}
       {this.renderBenchmarkData(timeDevelop, "develop")}
-      <button className="button" onClick={this.benchmark} disabled={benchmarking}>{benchmarking ? 'Running...' : 'Run benchmark'}</button>
+      <button className="button" onClick={this.benchmark} disabled={benchmarking}>
+        {benchmarking ? "Running..." : "Run benchmark"}</button>
     </div>;
+  }
+
+  private renderBenchmarkData(benchMark: BenchmarkData, branch: string) {
+    if (!benchMark || benchMark.count == 0) { return null; }
+    return <p className="message">
+        Rendering <strong>{benchMark.count}</strong> DropdownTreeSelect ({branch}) took
+        <strong> {benchMark.totalMs} ms </strong>
+        (total nodes parsed: {benchMark.totalNodeCount}, total clientids generated: {benchMark.clientIds.size})
+      </p>;
   }
 
   private async benchmarkComponent(Component,
@@ -55,7 +56,7 @@ export default class BenchmarkRender extends React.Component<any, BenchmarkState
     const renderDiv = document.createElement("div");
     const before = performance.now();
     let totalNodeCount = 0;
-    let clientIds = new Map();
+    const clientIds = new Map();
     for (let count = 1; count <= numberOfComponents; count++) {
       const result = await new Promise<BenchmarkData>((resolve) => {
         setTimeout(() => {

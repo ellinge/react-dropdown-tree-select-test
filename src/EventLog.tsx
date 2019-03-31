@@ -11,10 +11,6 @@ export class EventLog extends React.Component<any, { log: JSX.Element[] }> {
       this.setState((prevState) => ({ log: [ message ].concat(prevState.log) }));
     }
 
-    private clearLog(): void {
-      this.setState({ log: [] });
-    }
-
     public render() {
         const { log: eventLog } = this.state;
         if (!eventLog || eventLog.length === 0) { return null; }
@@ -22,5 +18,9 @@ export class EventLog extends React.Component<any, { log: JSX.Element[] }> {
             <button className="button" onClick={this.clearLog}>Clear action log</button>
             {eventLog.map((item, i) => <div key={i} className="message">{item}</div>)}
         </>);
+    }
+
+    private clearLog(): void {
+      this.setState({ log: [] });
     }
 }
