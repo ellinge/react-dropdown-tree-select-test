@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import DropdownTreeSelect from "react-dropdown-tree-select";
-import DropdownTreeSelect116 from "react-dropdown-tree-select@1.16.0";
+import DropdownTreeSelect116 from "react-dropdown-tree-select@1.17.0";
 import data from "./data.json";
 
 class BenchmarkData {

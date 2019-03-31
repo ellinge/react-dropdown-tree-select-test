@@ -1,8 +1,8 @@
 import CircularJSON from "circular-json";
 import prettyPrint from "json-pretty-html";
 import React from "react";
-import DropdownTreeSelect, { TreeNode, TreeNodeProps } from "react-dropdown-tree-select";
-import DropdownTreeSelect116 from "react-dropdown-tree-select@1.16.0";
+import DropdownTreeSelect, { NodeAction, TreeNode, TreeNodeProps } from "react-dropdown-tree-select";
+import DropdownTreeSelect116 from "react-dropdown-tree-select@1.17.0";
 
 import "react-dropdown-tree-select/dist/styles.css";
 import "./App.scss";
@@ -21,11 +21,12 @@ interface DropDownTestSectionProps {
   onAction?: any;
   onNodeToggle?: (currentNode: TreeNode) => void;
   show?: boolean;
+  enableKeyboardNavigation?: boolean;
 }
 
 const DropDownTestSection: React.FunctionComponent<DropDownTestSectionProps> = (props) => {
   const [ show, setShow ] = React.useState<boolean>(props.show || false);
-  const { Type, header, description, dummyA, dummyB, onChange, onAction, onNodeToggle, children } = props;
+  const { Type, header, description, dummyA, dummyB, onChange, onAction, onNodeToggle, children, enableKeyboardNavigation } = props;
 
   const dataMulti: TreeNodeProps[] = [ bigData ];
   const dataSingle: TreeNodeProps[] = JSON.parse(JSON.stringify(data));
@@ -38,9 +39,9 @@ const DropDownTestSection: React.FunctionComponent<DropDownTestSectionProps> = (
     {description && <p>{description}</p>}
     {show && <div>
         <div className="flex-wrap">
-          <Type data={dataMulti} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
-          <Type data={dataMulti} radioSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
-          <Type data={dataSingle} simpleSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} />
+          <Type data={dataMulti} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} enableKeyboardNavigation={enableKeyboardNavigation} />
+          <Type data={dataMulti} radioSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} enableKeyboardNavigation={enableKeyboardNavigation} />
+          <Type data={dataSingle} simpleSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle} enableKeyboardNavigation={enableKeyboardNavigation} />
         </div>
         {children}
       </div>}
@@ -68,12 +69,12 @@ const App: React.FunctionComponent = (props) => {
       </>);
   const onChange = (currentNode: TreeNode, selectedNodes: TreeNode[]) =>
     addToLog("onChange", { currentNode, selectedNodes });
-  const onAction = (action: any, node: any) =>
-    addToLog("onAction", { action: action || null, node: node || null });
+  const onAction = (action: NodeAction, node: TreeNode) =>
+    addToLog("onAction", { action, node });
   const onNodeToggle = (currentNode: TreeNode) =>
     addToLog("onNodeToggle", currentNode);
-  const onLocalAction =  (action: any, node: any) =>
-    addToLog("local onAction", { action: action || null, node: node || null });
+  const onLocalAction =  (action: NodeAction, node: TreeNode) =>
+    addToLog("local onAction", { action, node });
   const changeComponentType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setComponentType(event.target.value);
   };
@@ -98,6 +99,8 @@ const App: React.FunctionComponent = (props) => {
       </select>
 
       <DropDownTestSection Type={Type} header="With no checked/default values" />
+      
+      <DropDownTestSection Type={Type} header="With keyboard navigation" enableKeyboardNavigation />
 
       <DropDownTestSection Type={Type} header="With default values" description="Groot default, Batman default"
         dummyA={defaultDummyA} dummyB={defaultDummyB} />
