@@ -55,7 +55,7 @@ const App: React.FunctionComponent = (props) => {
   const onLocalAction =  (action: NodeAction, node: TreeNode) => {
     console.log(action, node);
     addToLog("local onAction", { action, node });
-  }
+  };
   const changeComponentType = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setComponentType(event.target.value);
   };

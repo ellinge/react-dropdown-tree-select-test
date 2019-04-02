@@ -41,7 +41,7 @@ export default class BenchmarkRender extends React.Component<any, BenchmarkState
   }
 
   private renderBenchmarkData(benchMark: BenchmarkData, branch: string) {
-    if (!benchMark || benchMark.count == 0) { return null; }
+    if (!benchMark || benchMark.count === 0) { return null; }
     return <p className="message">
         Rendering <strong>{benchMark.count}</strong> DropdownTreeSelect ({branch}) took
         <strong> {benchMark.totalMs} ms </strong>
