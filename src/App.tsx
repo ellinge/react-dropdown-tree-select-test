@@ -115,7 +115,7 @@ const App: React.FunctionComponent = (props) => {
         onNodeToggle={onNodeToggle} target={`${value}-onaction`} show={activeOnLoad === "onaction"}>
         <div className="dropdown-section">
           <label htmlFor="onlylocal">Only local onAction (only 1.0.4 and earlier)</label>
-          <Type data={[ actionsDummyB, actionsDummyB ]} id="onlylocal" simpleSelect
+          <Type data={[ actionsDummyA, actionsDummyB ]} id="onlylocal" simpleSelect
             onChange={onChange} onNodeToggle={onNodeToggle} />
         </div>
         <EventLog ref={eventLogRef} />
