@@ -19,7 +19,7 @@ import { EventLog } from "./EventLog";
 
 const App: React.FunctionComponent = (props) => {
   let activeVersionOnLoad = versionMap[0].value;
-  let activeOnLoad = "onaction";
+  let activeOnLoad = "";
   if (typeof window !== undefined && window.location.hash) {
     const match = /^#(\w+)-(\w+)$/.exec(window.location.hash);
     if (match) {
