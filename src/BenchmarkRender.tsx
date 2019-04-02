@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import DropdownTreeSelect from "react-dropdown-tree-select";
-import DropdownTreeSelect116 from "react-dropdown-tree-select@1.17.0";
+import DropdownTreeSelect117 from "react-dropdown-tree-select@1.17.0";
 import data from "./data.json";
 
 class BenchmarkData {
@@ -34,7 +34,7 @@ export default class BenchmarkRender extends React.Component<any, BenchmarkState
     const { benchmarking, timeDevelop, timeDevelopTemp } = this.state;
     return <div>
       {this.renderBenchmarkData(timeDevelopTemp, "developTemp")}
-      {this.renderBenchmarkData(timeDevelop, "develop")}
+      {this.renderBenchmarkData(timeDevelop, "v1.17")}
       <button className="button" onClick={this.benchmark} disabled={benchmarking}>
         {benchmarking ? "Running..." : "Run benchmark"}</button>
     </div>;
@@ -87,7 +87,7 @@ export default class BenchmarkRender extends React.Component<any, BenchmarkState
         const numberOfComponents = 200;
         this.benchmarkComponent(DropdownTreeSelect,
           (d1) => this.setState({ timeDevelopTemp: d1 }), numberOfComponents, () =>
-            this.benchmarkComponent(DropdownTreeSelect116,
+            this.benchmarkComponent(DropdownTreeSelect117,
               (d2) => this.setState({ timeDevelop: d2 }), numberOfComponents, () => {
                 this.setState({ benchmarking: false });
               }));
