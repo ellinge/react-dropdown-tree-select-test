@@ -69,15 +69,6 @@ const App: React.FunctionComponent = (props) => {
   const actionsDummyB = { ...dummyB, actions, batmanNode: true };
   const { type: Type, value } = versionMap.find((v) => v.value === componentType) || versionMap[0];
 
-  const issue198data: TreeNodeProps[] = [];
-  for (let i = 0; i < 10000; i++) {
-    issue198data.push({
-      label: "parent",
-      value: `pa${i}`,
-      children: [{ label: "child", value: `ch${i}` }]
-    });
-  }
-
   return (
     <div className="root">
       <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -92,11 +83,6 @@ const App: React.FunctionComponent = (props) => {
 
       <DropdownTestSection Type={Type} header="With keyboard navigation" enableKeyboardNavigation
         target={`${value}-keyboardnavigation`} show={activeOnLoad === "keyboardnavigation"} />
-
-      <DropdownTestSection Type={Type} header="Issue #198" hideDefaultCheckboxes
-        target={`${value}-issue198`} show={activeOnLoad === "issue198"}>
-        <DropdownTreeSelect data={issue198data} />
-      </DropdownTestSection>
 
       <DropdownTestSection Type={Type} header="With default values" description="Groot default, Batman default"
         dummyA={defaultDummyA} dummyB={defaultDummyB}
