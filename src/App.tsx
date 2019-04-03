@@ -1,7 +1,7 @@
 import CircularJSON from "circular-json";
 import prettyPrint from "json-pretty-html";
 import React from "react";
-import DropdownTreeSelect, { NodeAction, TreeNode, TreeNodeProps } from "react-dropdown-tree-select";
+import DropdownTreeSelect, { NodeAction, TreeNode } from "react-dropdown-tree-select";
 import DropdownTreeSelect104 from "react-dropdown-tree-select@1.0.4";
 import DropdownTreeSelect117 from "react-dropdown-tree-select@1.17.0";
 
@@ -81,8 +81,8 @@ const App: React.FunctionComponent = (props) => {
       <DropdownTestSection Type={Type} header="With no checked/default values"
         target={`${value}-nocheckeddefault`} show={activeOnLoad === "nocheckeddefault"} />
 
-      <DropdownTestSection Type={Type} header="With keyboard navigation" enableKeyboardNavigation
-        target={`${value}-keyboardnavigation`} show={activeOnLoad === "keyboardnavigation"} />
+      <DropdownTestSection Type={Type} header="With keyboard navigation off" enableKeyboardNavigation={false}
+        target={`${value}-keyboardnavigationoff`} show={activeOnLoad === "keyboardnavigationoff"} />
 
       <DropdownTestSection Type={Type} header="With default values" description="Groot default, Batman default"
         dummyA={defaultDummyA} dummyB={defaultDummyB}
