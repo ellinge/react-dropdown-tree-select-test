@@ -31,16 +31,16 @@ export const DropdownTestSection: React.FunctionComponent<DropdownTestSectionPro
   if (dummyA) { dataSingle.unshift(dummyA); }
 
   return (<div className={`dropdown-section ${show ? "visible" : "hidden"}`}>
-    <a href={`#${target}`} onClick={() => setShow(!show)}>{header}</a>
+    <a id={target} href={`#${target}`} onClick={() => setShow(!show)}>{header}</a>
     {description && <p>{description}</p>}
     {show && <div>
         {!hideDefaultCheckboxes && <div className="flex-wrap">
           <Type data={dataMulti} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}
-            enableKeyboardNavigation={enableKeyboardNavigation} />
-          <Type data={dataMulti} radioSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}
-            enableKeyboardNavigation={enableKeyboardNavigation} />
+            enableKeyboardNavigation={enableKeyboardNavigation} label={`#${target}`} />
+          <Type data={dataSingle} radioSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}
+            enableKeyboardNavigation={enableKeyboardNavigation} label={`#${target}`} />
           <Type data={dataSingle} simpleSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}
-            enableKeyboardNavigation={enableKeyboardNavigation} />
+            enableKeyboardNavigation={enableKeyboardNavigation} label={`#${target}`} />
         </div>}
         {children}
       </div>}
