@@ -37,7 +37,7 @@ export const DropdownTestSection: React.FunctionComponent<DropdownTestSectionPro
         {!hideDefaultCheckboxes && <div className="flex-wrap">
           <Type data={dataMulti} onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}
             enableKeyboardNavigation={enableKeyboardNavigation} label={`#${target}`} />
-          <Type data={dataSingle} radioSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}
+          <Type data={dataMulti} radioSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}
             enableKeyboardNavigation={enableKeyboardNavigation} label={`#${target}`} />
           <Type data={dataSingle} simpleSelect onChange={onChange} onAction={onAction} onNodeToggle={onNodeToggle}
             enableKeyboardNavigation={enableKeyboardNavigation} label={`#${target}`} />
