@@ -53,7 +53,6 @@ const App: React.FunctionComponent = (props) => {
   const onNodeToggle = (currentNode: TreeNode) =>
     addToLog("onNodeToggle", currentNode);
   const onLocalAction =  (action: NodeAction, node: TreeNode) => {
-    console.log(action, node);
     addToLog("local onAction", { action, node });
   };
   const changeComponentType = (event: React.ChangeEvent<HTMLSelectElement>) => {
