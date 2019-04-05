@@ -81,9 +81,6 @@ const App: React.FunctionComponent = (props) => {
       <DropdownTestSection Type={Type} header="With no checked/default values"
         target={`${value}-nocheckeddefault`} show={activeOnLoad === "nocheckeddefault"} />
 
-      <DropdownTestSection Type={Type} header="With keyboard navigation off" enableKeyboardNavigation={false}
-        target={`${value}-keyboardnavigationoff`} show={activeOnLoad === "keyboardnavigationoff"} />
-
       <DropdownTestSection Type={Type} header="With default values" description="Groot default, Batman default"
         dummyA={defaultDummyA} dummyB={defaultDummyB}
         target={`${value}-default`}  show={activeOnLoad === "default"} />
