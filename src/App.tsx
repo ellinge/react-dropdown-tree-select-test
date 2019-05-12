@@ -92,6 +92,10 @@ const App: React.FunctionComponent = (props) => {
         dummyA={defaultDummyA} dummyB={checkedDummyB}
         target={`${value}-checkeddefault`} show={activeOnLoad === "checkeddefault"} />
 
+      <DropdownTestSection Type={Type} header="With custom level style" description="Calc padding from aria-level"
+        className="customlevelstyle"
+        target={`${value}-customlevelstyle`} show={activeOnLoad === "customlevelstyle"} />
+
       <DropdownTestSection Type={Type} header="With events (onAction, onChange, onNodeToggle)"
         dummyA={actionsDummyA} dummyB={actionsDummyB} onChange={onChange} onAction={onAction}
         onNodeToggle={onNodeToggle} target={`${value}-onaction`} show={activeOnLoad === "onaction"}>

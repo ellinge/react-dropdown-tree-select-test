@@ -13,7 +13,7 @@
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-dropdown-tree-select": "git+https://github.com/ellinge/react-dropdown-tree-select.git#developTemp",
+    "react-dropdown-tree-select": "git+https://github.com/ellinge/react-dropdown-tree-select.git#developTemp2",
     "react-scripts": "2.1.8",
     "typescript": "3.3.3333"
   },
